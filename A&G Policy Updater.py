@@ -15,11 +15,9 @@ class App(customtkinter.CTk):
         self.geometry(f"{1100}x{580}")
         # configure grid layout (4x4)
         self.grid_columnconfigure((1), weight=1)
-        self.grid_rowconfigure((0, 0,), weight=1)
-
-        # self.grid_columnconfigure((1, 1), weight=2)
-        # self.grid_columnconfigure((2, 2), weight=2)
-        # self.grid_rowconfigure((0, 1, 2), weight=1)
+        self.grid_rowconfigure((0, 0,), weight=2)
+        self.grid_columnconfigure((1), weight=1)
+        self.grid_rowconfigure((1), weight=1)
 
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
@@ -35,59 +33,120 @@ class App(customtkinter.CTk):
 
         # create scrollable frame
         self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Scratch Card Platform", corner_radius=0)
-        self.scrollable_frame.grid(row=0, column=1, padx=(10, 0), pady=(10, 0), sticky="nsew")
-        self.scrollable_frame.grid_columnconfigure((1,1), weight=2)
-        self.scrollable_frame.grid_columnconfigure((2, 2), weight=2)
-        self.scrollable_frame.grid_rowconfigure((0,1, 1), weight=1)
+        self.scrollable_frame.grid(row=0, column=1, padx=(0, 0), pady=(0, 0), sticky="nsew")
+        self.scrollable_frame.grid_columnconfigure((0,2), weight=1)
+        self.scrollable_frame.grid_columnconfigure((0, 2), weight=2)
+        self.scrollable_frame.grid_rowconfigure((1,2), weight=2)
         self.scrollable_frame_switches = []
 
 
         # create radiobutton frame
-        self.reg_correction_frame = customtkinter.CTkFrame(self.scrollable_frame, fg_color="blue")
-        self.reg_correction_frame.grid(row=0, column=0, padx=(20, 20), pady=(20, 0),  sticky="nsew")
+        self.reg_correction_frame = customtkinter.CTkFrame(self.scrollable_frame, border_width=2 )
+        self.reg_correction_frame.grid(row=1, column=0, padx=(10, 10), pady=(10, 0), sticky="nsew")
         self.radio_var = tkinter.IntVar(value=0)
         self.label_radio_group = customtkinter.CTkLabel(master=self.reg_correction_frame, text="Reg Corrections")
         self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
+
         # create textbox
         self.reg_policy_number = customtkinter.CTkLabel(master=self.reg_correction_frame, text="Policy Number")
         self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
         self.textbox = customtkinter.CTkTextbox(self.reg_correction_frame, width=200, height=10)
-        self.textbox.grid(row=2, column=3, padx=(10, 0), pady=(10, 0), sticky="nsew")
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
-        self.reg_policy_number = customtkinter.CTkLabel(master=self.reg_correction_frame, text="Reg Number")
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.reg_correction_frame, text="Chassis Number")
         self.reg_policy_number.grid(row=3, column=2, columnspan=1, padx=10, pady=10, sticky="")
         self.textbox = customtkinter.CTkTextbox(self.reg_correction_frame, width=200, height=10)
-        self.textbox.grid(row=3, column=3, padx=(10, 0), pady=(10, 0), sticky="nsew")
+        self.textbox.grid(row=3, column=3, padx=(10, 20), pady=(10, 10), sticky="nsew")
+
+        self.sidebar_button_1 = customtkinter.CTkButton(self.reg_correction_frame, text="Update")
+        self.sidebar_button_1.grid(row=4, column=3, padx=20, pady=10, )
 
         # create radiobutton frame
-        self.chassis_correction_frame = customtkinter.CTkFrame(self.scrollable_frame, fg_color="green")
-        self.chassis_correction_frame.grid(row=0, column=2, padx=(20, 20), pady=(20, 0), sticky="nsew")
+        self.chassis_only_correction_frame = customtkinter.CTkFrame(self.scrollable_frame, border_width=2  )
+        self.chassis_only_correction_frame.grid(row=1, column=2, padx=(10, 10), pady=(10, 0), sticky="nsew")
         self.radio_var = tkinter.IntVar(value=0)
-        self.label_radio_group = customtkinter.CTkLabel(master=self.chassis_correction_frame, text="Chassis Corrections")
+        self.label_radio_group = customtkinter.CTkLabel(master=self.chassis_only_correction_frame, text="Chassis Only Corrections")
+        self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
+
+        # create textbox
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.chassis_only_correction_frame, text="Policy Number")
+        self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.chassis_only_correction_frame, width=200, height=10)
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
+
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.chassis_only_correction_frame, text="Chassis Number")
+        self.reg_policy_number.grid(row=3, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.chassis_only_correction_frame, width=200, height=10)
+        self.textbox.grid(row=3, column=3, padx=(10, 20), pady=(10, 10), sticky="nsew")
+
+        self.sidebar_button_1 = customtkinter.CTkButton(self.chassis_only_correction_frame, text="Update")
+        self.sidebar_button_1.grid(row=4, column=3, padx=20, pady=10, )
+
+        # create radiobutton frame
+        self.chassis_correction_frame = customtkinter.CTkFrame(self.scrollable_frame, border_width=2)
+        self.chassis_correction_frame.grid(row=2, column=0, padx=(10, 10), pady=(10, 0), sticky="nsew")
+        self.radio_var = tkinter.IntVar(value=0)
+        self.label_radio_group = customtkinter.CTkLabel(master=self.chassis_correction_frame,
+                                                        text="Chassis Corrections")
         self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
 
         # create textbox
         self.reg_policy_number = customtkinter.CTkLabel(master=self.chassis_correction_frame, text="Policy Number")
         self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
         self.textbox = customtkinter.CTkTextbox(self.chassis_correction_frame, width=200, height=10)
-        self.textbox.grid(row=2, column=3, padx=(10, 0), pady=(10, 0), sticky="nsew")
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
         self.reg_policy_number = customtkinter.CTkLabel(master=self.chassis_correction_frame, text="Chassis Number")
         self.reg_policy_number.grid(row=3, column=2, columnspan=1, padx=10, pady=10, sticky="")
         self.textbox = customtkinter.CTkTextbox(self.chassis_correction_frame, width=200, height=10)
-        self.textbox.grid(row=3, column=3, padx=(10, 0), pady=(10, 0), sticky="nsew")
+        self.textbox.grid(row=3, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
-        self.reg_policy_number = customtkinter.CTkLabel(master=self.chassis_correction_frame, text="Reg Number")
-        self.reg_policy_number.grid(row=4, column=2, columnspan=1, padx=10, pady=10, sticky="")
-        self.textbox = customtkinter.CTkTextbox(self.chassis_correction_frame, width=200, height=10)
-        self.textbox.grid(row=4, column=3, padx=(10, 0), pady=(10, 0), sticky="nsew")
+        self.sidebar_button_1 = customtkinter.CTkButton(self.chassis_correction_frame, text="Update")
+        self.sidebar_button_1.grid(row=4, column=3, padx=20, pady=10, )
 
+        # create radiobutton frame
+        self.verify_policy_frame = customtkinter.CTkFrame(self.scrollable_frame, border_width=2)
+        self.verify_policy_frame.grid(row=2, column=2, padx=(10, 10), pady=(10, 0), sticky="nsew")
+        self.radio_var = tkinter.IntVar(value=0)
+        self.label_radio_group = customtkinter.CTkLabel(master=self.verify_policy_frame,
+                                                        text="Verify Policy")
+        self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
 
+        # create textbox
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.verify_policy_frame, text="Certficate Number")
+        self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.verify_policy_frame, width=200, height=10)
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
+        self.sidebar_button_1 = customtkinter.CTkButton(self.verify_policy_frame,  text="Update")
+        self.sidebar_button_1.grid(row=4, column=3, padx=20, pady=70, )
 
+        # create radiobutton frame
+        self.verify_policy_frame = customtkinter.CTkFrame(self, border_width=2)
+        self.verify_policy_frame.grid(row=2, column=1, padx=(10, 10), pady=(10, 0), sticky="nsew")
+        self.radio_var = tkinter.IntVar(value=0)
+        self.label_radio_group = customtkinter.CTkLabel(master=self.verify_policy_frame,
+                                                        text="Verify Policy")
+        self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
 
+        # create textbox
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.verify_policy_frame, text="Certficate Number")
+        self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.verify_policy_frame, width=200, height=10)
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.verify_policy_frame, text="Certficate Number")
+        self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.verify_policy_frame, width=200, height=10)
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
 
+        self.reg_policy_number = customtkinter.CTkLabel(master=self.verify_policy_frame, text="Certficate Number")
+        self.reg_policy_number.grid(row=2, column=2, columnspan=1, padx=10, pady=10, sticky="")
+        self.textbox = customtkinter.CTkTextbox(self.verify_policy_frame, width=200, height=10)
+        self.textbox.grid(row=2, column=3, padx=(10, 20), pady=(10, 20), sticky="nsew")
+
+        self.sidebar_button_1 = customtkinter.CTkButton(self.verify_policy_frame, text="Update")
+        self.sidebar_button_1.grid(row=4, column=3, padx=20, pady=70, )
 
 
 
