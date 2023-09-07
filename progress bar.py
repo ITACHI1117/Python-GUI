@@ -11,7 +11,7 @@ root.geometry('500x350')
 def thing():
 
     # my_progress.step(20)
-    my_progress['value'] +=20
+    my_progress['value'] +=10
     my_label.config(text=f"{my_progress['value']}")
 
 def start():
